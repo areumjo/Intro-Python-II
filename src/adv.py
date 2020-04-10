@@ -1,5 +1,5 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -33,11 +33,20 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# print(room['outside'].desc) # North of you, the cave mount beckons
+# print(room['outside'].n_to.name) # Foyer
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+
+cmd = input('Enter your name: ')
+player = Player(cmd, room['outside'])
+print('-------------------------------------------')
+print(f'Hello, {player.name} are in {player.current_room}')
+print('------------------------------------------- \n')
 
 # Write a loop that:
 #
@@ -49,3 +58,39 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+while True:
+    cmd = input('Where to go?:').lower() 
+    print(f"*** MOVE to {cmd} ***")
+
+    if cmd in ("n", "s", "e", "w"):
+        player.travel(cmd)
+
+    elif cmd == 'q':
+        print("GOODBYE!")
+        exit()
+    else:
+        print('I do not understand, type any direction - n, s, e, s, or q to exit.')
+
+"""
+# if cmd == "n":
+#     if player.current_room.n_to is not None:
+#         player.current_room = player.current_room.n_to
+#     else:
+#         print("Can not move in that direction!")
+# elif cmd == "s":
+#     if player.current_room.s_to is not None:
+#         player.current_room = player.current_room.s_to
+#     else:
+#         print("Can not move in that direction!")    
+# elif cmd == "e":
+#     if player.current_room.e_to is not None:
+#         player.current_room = player.current_room.e_to
+#     else:
+#         print("Can not move in that direction!")    
+# elif cmd == "w":
+#     if player.current_room.w_to is not None:
+#         player.current_room = player.current_room.w_to
+#     else:
+#         print("Can not move in that direction!")
+"""
